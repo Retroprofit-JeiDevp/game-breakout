@@ -4,10 +4,44 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Breakout Retro</title>
+    <style>
+      .box-loading{
+        z-index: 500;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        background-color: #1d384d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .box-loading>img{
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .box-loading.none{
+        display: none;
+      }
+    </style>
   </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+  <body style="text-align: center; padding: 0; border: 0; margin: 0;position: relative;">
+    <div class="box-loading" id="box-loading">
+      <img src="./Build/loading.gif" alt="Loading...">
+    </div>
     <canvas id="unity-canvas" width=360 height=640 tabindex="-1" style="width: 360px; height: 640px; background: url('Build/web.jpg') center / cover"></canvas>
     <script src="Build/web.loader.js"></script>
+    <script>
+      function webReady(){
+        const boxLoading = document.getElementById("box-loading")
+
+        boxLoading && boxLoading.classList.add("none")
+      }
+    </script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
